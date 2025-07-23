@@ -6,7 +6,9 @@
 3. [Key Objectives](#key-objectives)
 4. [Methodology](#methodology)
 5. [Analysis & Findings](#analysis--findings)
-6. [Dashboard Features](#dashboard-features)
+6. [Dashboard Features]**Correlation Between Numerical Values**
+
+![correlation_between_numerical_variables](images/correlation_between_numerical_data.png)ashboard-features)
 7. [AI Tool Integration](#ai-tool-integration)
 8. [Ethical & Legal Considerations](#ethical--legal-considerations)
 9. [Challenges & Reflections](#challenges--reflections)
@@ -255,3 +257,54 @@ Even spread of shell companies involved in transactions ranging from 0-9.
 
 
 **Distribution of Transactions** 
+
+![distribution of transaction amount](images/distribution_of_transaction_amount.png)
+
+
+The mid point of transactions is $2.5 million dollars, the upper whisker is five million with no outliers and the smallest transaction is $1.5 million with no outliers. 
+
+# Advanced Analytics 
+
+### Hypothesis Testing Summary and Statistical Validation
+
+### The Pearson Correlation Test.
+
+The Pearson correlation test is used to measure the linear relationship between two continuous numerical variables in the dataset. This test will show whether increases in one variable are associated with increases or decreases in another.
+
+
+**Result:**
+The result is a correlation coefficient (r) between -1 and 1:
++1: Perfect positive linear relationship
+0: No linear relationship
+-1: Perfect negative linear relationship
+It also returns a p-value, which tells you if the correlation is statistically significant (typically, p < 0.05 means significant).
+
+**Requirements for Pearson Correlation**
+To ensure accurate results, the dataset should meet the following:
+- Variables must be numeric and continuous (e.g., price, distance, temperature)
+- Linear relationship between variables
+- No significant outliers that distort the result
+Data should be roughly normally distributed (especially for significance testing).
+
+### Correlation Summary of Numerical Variables
+
+
+| Variable Pair                  | Correlation Coefficient | Interpretation |
+|------------------------------------------|--------------------------|----------------|
+| Amount (USD) & Risk Score                | 0.0165                   | Very weak positive correlation – almost no relationship |
+| Amount (USD) & Shell Companies Involved  | -0.0179                  | Very weak negative correlation – almost no relationship |
+| Risk Score & Shell Companies Involved    | -0.0193                  | Very weak negative correlation – almost no relationship |
+---
+
+These results indicate that there is **no meaningful linear relationship** between these variables. For instance, larger transaction amounts are **not necessarily** associated with higher risk scores or more shell companies. This suggests that the `Money Laundering Risk Score` may be influenced more by other factors, such as `Industry`, `Country`, or whether the transaction was `Reported by Authority`.
+
+**Correlation Between Numerical Values**
+
+![correlation_between_numerical_variables](images/correlation_between_numerical_data.png)
+
+
+
+
+
+
+
