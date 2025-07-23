@@ -287,12 +287,13 @@ It also returns a p-value, which tells you if the correlation is statistically s
 
 These results indicate that there is **no meaningful linear relationship** between these variables. For instance, larger transaction amounts are **not necessarily** associated with higher risk scores or more shell companies. This suggests that the `Money Laundering Risk Score` may be influenced more by other factors, such as `Industry`, `Country`, or whether the transaction was `Reported by Authority`.
 
-### ![correlation_newplot](images/correlation_newplot.png)
 
-**Correlation Between Numeri
+![correlation_newplot](images/correlation_newplot.png)
+
+### 9.2. Chi-Squared Test Summary
+
 In order to calculate the relationships with categorical data, we'll explore the Chi Squared test,  which is a statistical method used to determine if there is a significant association between two categorical  variables. This test will help us understand if the distribution of one categorical variable differs significantly across the levels of another categorical variable.
 
-### 9.2.  Chi-Squared Test Summary
 
 | Category 1        | Category 2              | Chi-Squared Statistic | Degrees of Freedom | P-Value   | Significant? (α = 0.05) |
 |-------------------|-------------------------|------------------------|--------------------|-----------|-------------------------|
@@ -312,7 +313,8 @@ The association between the number of shell companies involved in a transaction 
 
 A highly significant relationship was found between the type of transaction and whether it involved a tax haven destination (χ² = 41.27, df = 20, p = 0.0034). This indicates that certain transaction types are more likely to involve tax haven countries, supporting risk-based hypotheses in AML (Anti-Money Laundering) analysis.
 
-## Hypothesis Testing Summary and Statistical Validation
+## 10. Hypothesis Testing Summary and Statistical Validation
+
 This report summarises the findings of three hypotheses tested using the data to understand the drivers of credit card churn. Each hypothesis is evaluated with its outcome, reasoning, and actionable recommendations.
 
 | 1 | Cross-border transactions are more often associated with legal sources of funds? 
