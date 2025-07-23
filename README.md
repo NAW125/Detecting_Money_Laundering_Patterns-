@@ -4,18 +4,10 @@
 
 
 ## Table of Contents
-1. [Overview](#overview)
-2. [The Dataset](#dataset-description)
-3. [Key Objectives](#key-objectives)
-4. [Methodology](#methodology)
-5. [Analysis & Findings](#analysis--findings)
-6. [Dashboard Features]**Correlation Between Numerical Values**
 
-![correlation_between_numerical_variables](images/correlation_between_numerical_data.png)ashboard-features)
-7. [AI Tool Integration](#ai-tool-integration)
-8. [Ethical & Legal Considerations](#ethical--legal-considerations)
-9. [Challenges & Reflections](#challenges--reflections)
-10. [Assessment Criteria](#assessment--criteria)
+
+
+
 
 
 ##  1. Overview
@@ -32,7 +24,7 @@ Beyond financial penalties, money laundering poses a direct threat to the profit
 In the United Kingdom, the Proceeds of Crime Act 2002 requires financial institutions to implement risk-based customer due diligence approach and take proactive measures to prevent their services from being used for money laundering or terrorist financing.
 This project investigates synthetic financial transaction data to identify patterns indicative of money laundering, drawing on datasets that span multiple countries, industries, and transaction types.
 
-## 2. Dataset 
+## 2. The Dataset 
 This project explores synthetic financial transaction data, modelled on real data to detect patterns consistent with money laundering activity. Using data spanning multiple countries across the world, industries, and transaction types, we apply statistical methods, risk scoring, and machine learning models to identify patterns of behavior associated with money laundering. 
 
 The objective is to identify anti-money laundering (AML) insights and recommendations by highlighting suspicious transaction profiles with a view to informing and improving financial compliance workflows.
@@ -90,10 +82,10 @@ Identify adequate processes and procedures to better comply with anti-money laun
 | 2 | Illegal transactions are more common in high-risk sectors such as Casinos and Luxury Goods. | Can we identify industries where transactions are more likely to be fraudulent? | Enables more effective monitoring of high-risk sectors to prevent money laundering. | Comparative |
 | 3 | Cross-border transactions involving tax haven countries are more likely to be associated with illegal sources of money. | Should transactions involving tax havens be flagged as higher risk? | Allows AML teams to focus efforts on transactions involving known high-risk jurisdictions. | Comparative |
 
-## 5. Methodology 
-### 5.1  Project Plan
+## 6. Methodology 
+### 6.1  Project Plan
 A structured data analysis workflow ensured traceability from business objectives to actionable insights.
-### High-Level Steps
+### 6.2 High-Level Steps
 **- Data Collection**  – Source from Kaggle
 
 **- Data Processing** – Clean, transform, encode
@@ -110,21 +102,21 @@ Python in VS Code (ETL and feature engineering)
 
 -Modelling Clustering / classification (e.g., decision trees, isolation forest)
 
-### 5.2. Extract Transform and Load 
+### 6.3 Extract Transform and Load 
 
 A structured ETL pipeline was implemented to ensure clean, analysis-ready data. The ETL (Extract, Transform, Load) process involved:
 
-5.2.1 1. **Data Cleaning:** Checking for irregularities across the dataset which could hinder analysis, including missing values spelling errors, datetime parsing, normalisation. Removing columns that are not needed for the analysis. i.e. Transaction Number: (TX0000000001). And keeping the size of the file to a manageable size, so that analysis tools such and Power BI and Tableau can handle the file size. Review records where “duplicates” appear. Are these duplicates appropriate or do they demonstrate something about the data. Monetary values are reduced down to zero decimal places as we are dealing seven figure transactions, it is safe to drop any additional small values.
+6.3.1 **Data Cleaning:** Checking for irregularities across the dataset which could hinder analysis, including missing values spelling errors, datetime parsing, normalisation. Removing columns that are not needed for the analysis. i.e. Transaction Number: (TX0000000001). And keeping the size of the file to a manageable size, so that analysis tools such and Power BI and Tableau can handle the file size. Review records where “duplicates” appear. Are these duplicates appropriate or do they demonstrate something about the data. Monetary values are reduced down to zero decimal places as we are dealing seven figure transactions, it is safe to drop any additional small values.
 
-2. **Exploratory Data Analysis :**  Focused on the numerical columns within the dataset. `Amount USD`, `Money Laundering Risk Score` and `Number of Shell Companies Involved`. Initial Analysis involves descriptive sttastics , mean, media and mode, outlier detection to identify and values which may skew the analysis or prevent stastical tests being carried out. Distribution plots will assess the spread of the data. 
+6.3.2. **Exploratory Data Analysis :**  Focused on the numerical columns within the dataset. `Amount USD`, `Money Laundering Risk Score` and `Number of Shell Companies Involved`. Initial Analysis involves descriptive sttastics , mean, media and mode, outlier detection to identify and values which may skew the analysis or prevent stastical tests being carried out. Distribution plots will assess the spread of the data. 
 
-2. **Exploratory Data Analysis :**  Focused on the numerical columns within the dataset. `Amount USD`, `Money Laundering Risk Score` and `Number of Shell Companies Involved`. Initial Analysis involves descriptive sttastics , mean, media and mode, outlier detection to identify and values which may skew the analysis or prevent stastical tests being carried out. Distribution plots will assess the spread of the data. 
+6.3.3. **Exploratory Data Analysis :**  Focused on the numerical columns within the dataset. `Amount USD`, `Money Laundering Risk Score` and `Number of Shell Companies Involved`. Initial Analysis involves descriptive sttastics , mean, media and mode, outlier detection to identify and values which may skew the analysis or prevent stastical tests being carried out. Distribution plots will assess the spread of the data. 
 
  
-4. `Domestic vs Cross-Border Transaction` Purpose: Quickly identifies if a transaction stays within the same country or goes across borders. Method: Compare Country with Destination Country. 
+6.3.4. `Domestic vs Cross-Border Transaction` Purpose: Quickly identifies if a transaction stays within the same country or goes across borders. Method: Compare Country with Destination Country. 
  
 
-5. `Origin Country Category` (Income & Regulation Bins). Based on UN classifications, World Bank income levels, and FATF regulatory status, countries can be grouped into three bins: 
+6.3.5. `Origin Country Category` (Income & Regulation Bins). Based on UN classifications, World Bank income levels, and FATF regulatory status, countries can be grouped into three bins: 
  
 
 |Country| Origin Country Bin| 
@@ -154,13 +146,13 @@ A structured ETL pipeline was implemented to ensure clean, analysis-ready data. 
 | Lower-Middle / Partial Regulated | India | 
 | Upper-Middle / High Risk         | Russia  | 
 
-## 4. Analysis & Findings 
+## 7. Analysis & Findings 
  
 
-### Descriptive Analysis: 
+### 7.1. Descriptive Analysis: 
  
 
-`Amount (USD)` 
+7.1.2.`Amount (USD)` 
  
 
 * **Mean**: 2,501,817. On average, transactions involve about \$2.5 million. 
@@ -178,7 +170,7 @@ A structured ETL pipeline was implemented to ensure clean, analysis-ready data. 
 --- 
  
 
-`Reported by Authority` (Boolean: True = reported, False = not) 
+7.1.3.`Reported by Authority` (Boolean: True = reported, False = not) 
  
 
 * **Mean**: 0.2005. About **20%** of transactions were reported by authorities. 
@@ -199,7 +191,7 @@ A structured ETL pipeline was implemented to ensure clean, analysis-ready data. 
 --- 
  
 
-`Money Laundering Risk Score` (0–10 scale) 
+7.1.4. `Money Laundering Risk Score` (0–10 scale) 
  
 
 * **Mean**: \~5.53. Average risk score is around 5.5. 
@@ -217,7 +209,7 @@ A structured ETL pipeline was implemented to ensure clean, analysis-ready data. 
 --- 
  
 
-`Shell Companies Involved` (0–9) 
+7.1.5. `Shell Companies Involved` (0–9) 
  
 
 * **Mean**: \~4.47. On average, \~4.5 shell companies are involved per transaction. 
@@ -231,7 +223,7 @@ A structured ETL pipeline was implemented to ensure clean, analysis-ready data. 
 * **Skewness**: \~0.01. Almost symmetrical distribution. 
 * **Kurtosis**: -1.22. Flat distribution with fewer outliers. 
 
-**Money Laundering Risk Score** 
+7.1.6. **Money Laundering Risk Score** 
 
 ![Money Laundering Risk Score Count](images/money_laundering_risk_score_count.png)
 
@@ -251,7 +243,7 @@ The mean risk scores across each industry are equally similar:
 ---
 
 
-**Shell Companies Involved**
+7.1.7 **Shell Companies Involved**
 
 ![Shell Companies Involved](images/shell_companies_involved.png)
 
@@ -259,18 +251,18 @@ The mean risk scores across each industry are equally similar:
 Even spread of shell companies involved in transactions ranging from 0-9. 
 
 
-**Distribution of Transactions** 
+7.1.8. **Distribution of Transactions** 
 
 ![distribution of transaction amount](images/distribution_of_transaction_amount.png)
 
 
 The mid point of transactions is $2.5 million dollars, the upper whisker is five million with no outliers and the smallest transaction is $1.5 million with no outliers. 
 
-# Advanced Analytics 
+# 8. Advanced Analytics 
 
-### Hypothesis Testing Summary and Statistical Validation
+### 8.1. Hypothesis Testing Summary and Statistical Validation
 
-### The Pearson Correlation Test.
+### 8.1.1. The Pearson Correlation Test.
 
 The Pearson correlation test is used to measure the linear relationship between two continuous numerical variables in the dataset. This test will show whether increases in one variable are associated with increases or decreases in another.
 
@@ -281,13 +273,6 @@ The result is a correlation coefficient (r) between -1 and 1:
 0: No linear relationship
 -1: Perfect negative linear relationship
 It also returns a p-value, which tells you if the correlation is statistically significant (typically, p < 0.05 means significant).
-
-**Requirements for Pearson Correlation**
-To ensure accurate results, the dataset should meet the following:
-- Variables must be numeric and continuous (e.g., price, distance, temperature)
-- Linear relationship between variables
-- No significant outliers that distort the result
-Data should be roughly normally distributed (especially for significance testing).
 
 ### Correlation Summary of Numerical Variables
 
@@ -301,10 +286,8 @@ Data should be roughly normally distributed (especially for significance testing
 
 These results indicate that there is **no meaningful linear relationship** between these variables. For instance, larger transaction amounts are **not necessarily** associated with higher risk scores or more shell companies. This suggests that the `Money Laundering Risk Score` may be influenced more by other factors, such as `Industry`, `Country`, or whether the transaction was `Reported by Authority`.
 
-**Correlation Between Numerical Values**
 
-![correlation_between_numerical_variables](images/correlation_between_numerical_data.png)
-
+**Correlation Between Numeri
 In order to calculate the relationships with categorical data, we'll explore the Chi Squared test,  which is a statistical method used to determine if there is a significant association between two categorical  variables. This test will help us understand if the distribution of one categorical variable differs significantly across the levels of another categorical variable.
 
 ###  Chi-Squared Test Summary
