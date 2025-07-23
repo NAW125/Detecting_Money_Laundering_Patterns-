@@ -1,5 +1,8 @@
 # Detecting Money Laundering Patterns Across Global Financial Transactions
 
+![world_map](images/world%20map.png)
+
+
 ## Table of Contents
 1. [Overview](#overview)
 2. [The Dataset](#dataset-description)
@@ -331,6 +334,26 @@ This report summarises the findings of three hypotheses tested using the data to
 In 2023, $25.02 billion in international transactions were recorded across ten countries. Of these, 90.1% were cross-border, while 9.9% were domestic.
 
 !['transaction_flows_by_destination'](images/transaction_flows_by_destination_country.png)
+!['legal_illegal'](images/legal_illegal.png)
+
+Of that 90.1% of  total transactions, at least 60% of transactions for all 10 countries are illegal.. This supports the hypothesis that the largest proportion of cross-boarder transactions are illegal. 
+
+| 2 | Illegal transactions are more common in high-risk sectors such as Casinos and Luxury Goods.
+
+![spread_of_transactions_across_industry](images/spread_of_transactions_across_industry.png)
+
+| 3 | Cross-border transactions involving tax haven countries are more likely to be associated with illegal sources of money. 
+
+
+!['transactions_involving_tax_havens'](images/transactions_involving_tax_havens.png)
+
+The data shows that the hightest proportion of trsactions across the course of the year, 2023 does not involve tax haven countries. $14B was laundered in 2023 involving ten countries that did not involve a tax havens.
+
+![shell_company_involvement_transactions](images/shell_company_involvment_transactions.png)
+
+!['legal_illegal'](images/legal_illegal.png)
+
+The data set provided the range of shell companies associated with a transaction from 0- 9. Transactions where three or more shell companies involved is a red flag. The histogram shows that a disporotionally high proportion of illegal trsactions are associated with three or more shell companies 
 
 
 
