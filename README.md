@@ -302,6 +302,35 @@ These results indicate that there is **no meaningful linear relationship** betwe
 
 ![correlation_between_numerical_variables](images/correlation_between_numerical_data.png)
 
+In order to calculate the relationships with categorical data, we'll explore the Chi Squared test,  which is a statistical method used to determine if there is a significant association between two categorical  variables. This test will help us understand if the distribution of one categorical variable differs significantly across the levels of another categorical variable.
+
+###  Chi-Squared Test Summary
+
+| Category 1        | Category 2              | Chi-Squared Statistic | Degrees of Freedom | P-Value   | Significant? (α = 0.05) |
+|-------------------|-------------------------|------------------------|--------------------|-----------|-------------------------|
+| Industry          | Reported by Authority   | 12.7965                | 6                  | 0.0464    | Yes   |
+| Shell Cat | Reported by Authority | 3.5725| 1| 0.0587| No|
+| Transaction Type | Tax Haven Country | 41.2689| 20| 0.0034| Yes 
+
+**Industry / Reported by Authority**
+
+The analysis showed a statistically significant relationship between the type of industry and whether a transaction was reported by an authority (χ² = 12.80, df = 6, p = 0.0464). This suggests that certain industries are more likely to trigger regulatory reports, possibly due to inherent risk profiles or regulatory scrutiny.
+
+**Shell Category / Reported by Authority**
+
+The association between the number of shell companies involved in a transaction and being reported was not statistically significant (χ² = 3.57, df = 1, p = 0.0587). Although close to the 0.05 threshold, this result implies no strong evidence that shell company alone significantly impacts reporting rates in this sample. In that this category combined with another may provide more insight. 
+
+**Transaction Type / Tax Haven Country**
+
+A highly significant relationship was found between the type of transaction and whether it involved a tax haven destination (χ² = 41.27, df = 20, p = 0.0034). This indicates that certain transaction types are more likely to involve tax haven countries, supporting risk-based hypotheses in AML (Anti-Money Laundering) analysis.
+
+## Hypothesis Testing Summary and Statistical Validation
+This report summarises the findings of three hypotheses tested using the data to understand the drivers of credit card churn. Each hypothesis is evaluated with its outcome, reasoning, and actionable recommendations.
+
+| 1 | Cross-border transactions are more often associated with legal sources of funds? 
+In 2023, $25.02 billion in international transactions were recorded across ten countries. Of these, 90.1% were cross-border, while 9.9% were domestic.
+
+!['transaction_flows_by_destination'](images/transaction_flows_by_destination_country.png)
 
 
 
