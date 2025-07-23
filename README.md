@@ -29,8 +29,10 @@ This project investigates synthetic financial transaction data to identify patte
 
 ## 2. Dataset 
 This project explores synthetic financial transaction data, modelled on real data to detect patterns consistent with money laundering activity. Using data spanning multiple countries across the world, industries, and transaction types, we apply statistical methods, risk scoring, and machine learning models to identify patterns of behavior associated with money laundering. 
+
 The objective is to identify anti-money laundering (AML) insights and recommendations by highlighting suspicious transaction profiles with a view to informing and improving financial compliance workflows.
-All data used has been generated for research purposes mimicking  the complexity and structure of real-world financial transactions.
+
+All data used has been generated for research purposes mimicking the complexity and structure of real-world financial transactions. 
 
 ### 2.1 Dataset Source
 https://www.kaggle.com/datasets/waqi786/global-black-money-transactions-dataset
@@ -59,7 +61,7 @@ Money_Laundering_Dataset_.csv (10,000 records X 14 columns)
 | **Tax Haven Country**         | Specifies whether the transaction is connected to a known tax haven jurisdiction. |
 
 
-*Date of transactions - transactions span a two year period from 2013 - 2014. We will carry out a data shift to 2023/ 2024 during the ETL process to enable the analysis of any seasonality variations within the dataset. 
+*Date of transactions - transactions span a two-year period from 2013 - 2014. We will carry out a data shift to 2023/ 2024 during the ETL process to enable the analysis of any seasonality variations within the dataset. 
 
 ## 3. Key Objectives 
 
@@ -67,13 +69,13 @@ Money_Laundering_Dataset_.csv (10,000 records X 14 columns)
 - Test key hypotheses using the data set 
 Visualise findings through interactive Tableau dashboards
 - Translate insights into actionable business recommendations.
+- Develop and evaluate machine-learning models, a supervised classifiers (e.g., logistic regression, random forest).
 
 ## 4. Business Requirements 
 This project supports stakeholder decision-making with clear, data-driven insights into the drivers patters of behaviour around money laundering. 
 
-
 ## 5. Key Business Goals
-Identify adequate processes and procedures to better compy with anti-money laudering regulations, at the domestic and international level. 
+Identify adequate processes and procedures to better comply with anti-money laundering regulations, at the domestic and international level. 
 
 ## 5. Hypothesis 
 
@@ -97,7 +99,159 @@ Exploratory Data Analysis and hypothesis testing.
 **- Tools**
 Python in VS Code (ETL and feature engineering)
 
-GitHub (Version Control)
+-GitHub (Version Control)
 
-Tableau (Interactive Dashboard and visualisation)
+-Tableau (Interactive Dashboard and visualisation)
 
+-Modelling Clustering / classification (e.g., decision trees, isolation forest)
+
+### 5.2. Extract Transform and Load 
+
+A structured ETL pipeline was implemented to ensure clean, analysis-ready data. The ETL (Extract, Transform, Load) process involved:
+
+5.2.1 1. **Data Cleaning:** Checking for irregularities across the dataset which could hinder analysis, including missing values spelling errors, datetime parsing, normalisation. Removing columns that are not needed for the analysis. i.e. Transaction Number: (TX0000000001). And keeping the size of the file to a manageable size, so that analysis tools such and Power BI and Tableau can handle the file size. Review records where “duplicates” appear. Are these duplicates appropriate or do they demonstrate something about the data. Monetary values are reduced down to zero decimal places as we are dealing seven figure transactions, it is safe to drop any additional small values.
+
+2. **Exploratory Data Analysis :**  Focused on the numerical columns within the dataset. `Amount USD`, `Money Laundering Risk Score` and `Number of Shell Companies Involved`. Initial Analysis involves descriptive sttastics , mean, media and mode, outlier detection to identify and values which may skew the analysis or prevent stastical tests being carried out. Distribution plots will assess the spread of the data. 
+
+2. **Exploratory Data Analysis :**  Focused on the numerical columns within the dataset. `Amount USD`, `Money Laundering Risk Score` and `Number of Shell Companies Involved`. Initial Analysis involves descriptive sttastics , mean, media and mode, outlier detection to identify and values which may skew the analysis or prevent stastical tests being carried out. Distribution plots will assess the spread of the data. 
+
+ 
+4. `Domestic vs Cross-Border Transaction` Purpose: Quickly identifies if a transaction stays within the same country or goes across borders. Method: Compare Country with Destination Country. 
+ 
+
+5. `Origin Country Category` (Income & Regulation Bins). Based on UN classifications, World Bank income levels, and FATF regulatory status, countries can be grouped into three bins: 
+ 
+
+|Country| Origin Country Bin| 
+|----------|--------------------------------------------------------| 
+|**Brazil**| Upper-Middle Income / Moderate Regulation| 
+|**China**|Upper-Middle Income / Strict Regulation| 
+|**UK**| High Income / Strong Regulation| 
+|**UAE**|High Income / Low Transparency / Risk Zone| 
+|**South Africa**| Upper-Middle Income / Moderate Regulation| 
+|**Russia**| High Income / High Risk| 
+|**Switzerland**|High Income / Strong Regulation| 
+|**India**| Lower-Middle Income / Developing 
+|**USA**|High Income / Strong Regulation| 
+|**Singapore**|High Income / Tax Haven / Risk Zone| 
+ 
+
+
+`Destination Country Category` (Based on Similar Risk/Income Profiles) 
+ 
+
+| Origin Country Category          | Countries | 
+|----------------------------------|----------------------| 
+| High Income / Regulated          | USA, UK, Switzerland | 
+| High Income / Tax Haven          | Singapore, UAE | 
+| Upper-Middle / Regulated         | South Africa  | 
+| Upper-Middle / Partial Regulated | China, Brazil | 
+| Lower-Middle / Partial Regulated | India | 
+| Upper-Middle / High Risk         | Russia  | 
+
+## 4. Analysis & Findings 
+ 
+
+### Descriptive Analysis: 
+ 
+
+`Amount (USD)` 
+ 
+
+* **Mean**: 2,501,817. On average, transactions involve about \$2.5 million. 
+* **Median**: 2,501,310. The middle transaction amount is also about \$2.5 million, close to the mean, so the distribution might be roughly symmetric. 
+* **Mode**: 2,655,927. The most common transaction amount is about \$2.65 million. 
+* **Max**: 4,999,812. The largest transaction is nearly \$5 million. 
+* **Standard Deviation**: 1,424,364. There is a high spread in transaction amounts, but because mean ≈ median, it suggests the spread isn't caused by strong outliers. 
+* **25%**: 1,279,005.25 — 25% of all transactions fall below this amount. This shows what a “low-end” transaction looks like within the dataset. 
+* **50%**: 2,501,310.50 — This is the **median**, meaning half the transactions are below this value and half are above. It's useful for understanding the "typical" transaction. 
+* **75%**: 3,722,416.75 — 75% of transactions are below this amount, and 25% are above. This highlights what a relatively large transaction looks like within the context of the data. 
+* **Skewness**: \~0.01. The distribution is nearly symmetrical. 
+* **Kurtosis**: -1.17. The distribution is flatter than normal, meaning fewer extreme outliers than expected in a bell curve. 
+ 
+
+--- 
+ 
+
+`Reported by Authority` (Boolean: True = reported, False = not) 
+ 
+
+* **Mean**: 0.2005. About **20%** of transactions were reported by authorities. 
+* **Median**: 0.0. More than half of the transactions were **not reported**. 
+* **Mode**: False. The most common value is **False**, confirming most cases are unreported. 
+* **Max**: True. Some transactions were reported. 
+* **Standard Deviation**: 0.400. Reflects a mix of True and False values but skewed toward False. 
+* **25%**: 0.0 — At least 25% of the values are unreported. 
+* **50%**: 0.0 — The median again confirms that at least half are unreported. 
+* **75%**: 0.0 — Even 75% of the values are False (not reported), which shows that only a small minority were flagged by authorities. 
+* **Skewness**: 1.50. Strong **right skew** — very few 1s (True values). 
+* **Kurtosis**: 0.24. Slightly peaked compared to a normal distribution. 
+ 
+
+**Conclusion**: Most transactions go unreported; this variable could help flag rare, suspicious activity. 
+ 
+
+--- 
+ 
+
+`Money Laundering Risk Score` (0–10 scale) 
+ 
+
+* **Mean**: \~5.53. Average risk score is around 5.5. 
+* **Median**: 6. Half the transactions have a score below 6, half above. 
+* **Mode**: 9. Most common score is **9**, suggesting many high-risk transactions. 
+* **Max**: 10. Some transactions score the maximum risk. 
+* **Standard Deviation**: 2.89. There's a reasonable spread of scores. 
+* **25%**: 3.0 — One-quarter of transactions are low-risk (below 3). 
+* **50%**: 6.0 — The median; half of all transactions score below 6, half above. 
+* **75%**: 8.0 — 25% of transactions have risk scores **higher than 8**, indicating a significant tail of high-risk activity. 
+* **Skewness**: \~-0.01. Very slight **left skew**, almost symmetric. 
+* **Kurtosis**: -1.24. Flatter distribution — values more evenly spread than a bell curve. 
+ 
+
+--- 
+ 
+
+`Shell Companies Involved` (0–9) 
+ 
+
+* **Mean**: \~4.47. On average, \~4.5 shell companies are involved per transaction. 
+* **Median**: 4. Half of transactions involve **4 or fewer** shell companies. 
+* **Mode**: 0. Many transactions involve **no** shell companies at all. 
+* **Max**: 9. Some transactions involve up to **9** shell companies. 
+* **Standard Deviation**: 2.88. Moderate variability in number of shell companies involved. 
+* **25%**: 2.0 — A quarter of transactions involve 2 or fewer shell companies. 
+* **50%**: 4.0 — The median; half of all transactions involve fewer than 4 shell companies. 
+* **75%**: 7.0 — A quarter of all transactions involve 7 or more shell companies — potentially suspicious activity. 
+* **Skewness**: \~0.01. Almost symmetrical distribution. 
+* **Kurtosis**: -1.22. Flat distribution with fewer outliers. 
+
+**Money Laundering Risk Score** 
+
+![Money Laundering Risk Score Count](images/money_laundering_risk_score_count.png)
+
+There is an even spread of the risk scores based on the frequency they appear across transactions. 
+
+The mean risk scores across each industry are equally similar:
+
+| Industry | Mean Risk Score |
+|----------|-----------------|
+| Luxury Goods | 5.373544 |
+| Oil & Gas | 5.427843 |
+| Real Estate | 5.455301 |
+| Casinos | 5.556282 |
+| Arms Trade | 5.570721 |
+| Construction | 5.583562 |
+| Finance | 5.711864 |
+---
+
+
+**Shell Companies Involved**
+
+![Shell Companies Involved](images/shell_companies_involved.png)
+
+
+Even spread of shell companies involved in transactions ranging from 0-9. 
+
+
+**Distribution of Transactions** 
