@@ -86,22 +86,20 @@ Identify adequate processes and procedures to better comply with anti-money laun
 ### 7.1.  Project Plan
 A structured data analysis workflow ensured traceability from business objectives to actionable insights.
 
-### 7.2. High-Level Steps
-**- Data Collection**  – Source from Kaggle
+**High-Level Project Plan**
 
-**- Data Processing** – Clean, transform, encode
-Exploratory Data Analysis and hypothesis testing.
+A GitHub project board was created and used to structure the project phases, track progress, and ensure the work was completed on time(https://github.com/users/NAW125/projects/5). The planning drew on project experience and data science workflows, breaking down the work into manageable stages from ideation to delivery.
 
-**- Visualisations** – Built with Tableau
+The first phase involved ideation, selecting a suitable AML dataset, and clearly defining the problem statement. Once the dataset was sourced, the next step was data preparation, which included cleaning, transforming, and encoding the data using Python in VS Code.
 
-**- Tools**
-Python in VS Code (ETL and feature engineering)
+This was followed by exploratory data analysis (EDA) and feature engineering across multiple Jupyter notebooks. One notebook was dedicated to EDA and hypothesis testing, while another focused on the preparation and transformation of the dataset for machine learning tasks such as classification.
 
--GitHub (Version Control)
+Tableau was then used to build an interactive dashboard. Despite some limitations on the free tier (e.g., import issues), the visualisations were completed and made to support the hypothesis testing and final insights.
 
--Tableau (Interactive Dashboard and visualisation)
+For the modelling stage, a DecisionTreeClassifier was used to build a simple but interpretable machine learning model. Significant time was spent transforming the dataset into a format suitable for scikit-learn, which revealed the need for earlier planning around model requirements.
 
--Modelling Clustering / classification (e.g., decision trees, isolation forest)
+
+The README was progressively updated during the project, with a full review and polish once the main analysis and dashboard were complete. It includes final outputs, reflections, ethical considerations, and next steps for future development, including a potential Streamlit-based AML calculator.
 
 ### 7.3 Extract Transform and Load 
 
@@ -357,6 +355,13 @@ Notably, the upper whisker for reported transactions reaches approximately $3.5 
 
 The full suite of visualisations of the data is located available here.  
 
+| Story Number | Description                         | Link                                                                                                         |
+|--------------|-----------------------------------|--------------------------------------------------------------------------------------------------------------|
+| 1            | Hypothesis 1 - Cross-border vs Domestic Transactions | [View Story 1](https://public.tableau.com/shared/SKG4XY4W5?:display_count=n&:origin=viz_share_link)            |
+| 2            | Hypothesis 2 - Illegal Transactions in High-Risk Sectors | [View Story 2](https://public.tableau.com/shared/SKG4XY4W5?:display_count=n&:origin=viz_share_link)            |
+| 3            | Hypothesis 3 - Tax Haven Involvement in Cross-border Transactions | [View Story 3](https://public.tableau.com/views/DetectingMoneyLaunderingPatterns-H2/Hypothesis2?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link) |
+
+
 
 ## 11. Decision Tree Classification
 
@@ -404,6 +409,11 @@ To address the imbalance, the training dataset was rebalanced to include equal n
 - Illegal classification remained relatively strong
 > This version offers a more fair and usable baseline for classifying both legal and illegal transactions.
 
+
+![decision_tree](images/decision_tree.png)
+
+This decision tree map, shows a highly detailed and complex decision making process to identity whether a transaction is fraudulent of not.  
+
 ---
 
 ### 11.6. XGBoost Classifier
@@ -430,13 +440,133 @@ Key takeaways:
 - False positives (flagging legal transactions as illegal) are relatively high, but acceptable at this exploratory stage.
 
 > We'll stop model development at this point, as the current dataset has limitations in class balance, granularity, and feature richness. However, the models lay a solid foundation that can improve significantly with:
-> - Better labelled data
+> - Updated real time data, to continue to track patterns and activity.
 > - More granular features (e.g., transaction time, frequency)
-> - Techniques like feature selection, regularisation, or ensemble methods
+
 
 This section demonstrates how even a basic machine learning model can support suspicious transaction detection in a high-risk environment.
 
+## 12. Conclusion 
+
+The relatively even distribution of transaction types, amounts, sectors, and countries suggests that sophisticated money laundering operations are deliberately structured to evade detection. This lack of consistent patterns makes it difficult to apply narrow, targeted AML strategies.
+However, there are important subtleties within the data:
+- Cross-border transactions are more likely to be fraudulent than domestic ones.
+- Transactions involving three or more shell companies show a higher likelihood of being illegal, indicating deliberate attempts to obscure the money trail.
+- While many illegal transactions do not involve tax havens, the presence of a tax haven in a transaction increases the probability of fraud even further.
+In order to explore whether predictive tools could support detection, a supervised machine learning approach was implemented. A **decision tree classifier** was trained on encoded features from the dataset to classify transactions as **legal or illegal**. Initial results showed reasonable performance in identifying illegal transactions but poor performance in recognising legal ones, due largely to the imbalance in the data. 
+
+> The visualisation of the decision tree (see above) revealed a highly complex structure with many nodes that the decision paths were no longer interpretable — a sign of overfitting and the inherent complexity of modelling suspicious activity from such noisy and balanced data.
+
+Despite these limitations, the model achieved an accuracy of approximately 59%, showing promise for the future. A more advanced model, XGBoost, was also tested. It performed similarly, offering no significant improvement, but helped confirm the baseline potential of machine learning tools in this context.
+
+These insights highlight the complexity and adaptability of modern money laundering practices and reinforce the need for broad, data-driven approaches, including machine learning, if we are to be successful in reducing the amount of money laundering that takes place. With further refinement and more granular, better-balanced data, machine learning models can become critical tools for identifying and flagging high-risk transactions at scale.
+
+## 13. Recommendations 
+
+The analysis reveals that sophisticated money laundering operations are likely in play, carefully designed to avoid detection by varying transaction types, sectors, and amounts. Contrary to traditional assumptions, the data suggests that illicit transactions are not confined to the most obvious red flags. However, several clear patterns and actionable insights emerged that financial institutions can use to strengthen their anti-money laundering (AML) controls:
+
+### 13.1. **Flag Transactions Involving Multiple Shell Companies**
+
+Transactions involving three or more shell companies show a significantly higher likelihood of being linked to money laundering. These should be automatically flagged for enhanced due diligence or review.
+
+### 13.2. **Monitor the Intersection of Shell Companies and Tax Havens**
+
+The risk increases even further when a transaction involves both a tax haven destination and three or more shell companies. These cases should be prioritised for investigation as high-risk.
+
+### 13.3. **Increase Random Spot Checks on International Transactions**
+
+A large proportion of international transactions are associated with illegal activity, yet authorities are underreporting such cases. Financial institutions should increase random spot checks, particularly for transactions:
+- In the full range of trsactions, $1 million to $5 million.
+- Across all sectors, not just those traditionally seen as high risk
+
+This approach improves the likelihood of identifying suspicious activity by chance and strengthens the institution’s overall detection capabilities.
+
+### 13.4. **Incorporate Machine Learning into AML Pipelines**
+
+While early models like the decision tree and XGBoost classifier showed a good starting place with 59% accuracy. These models have they demonstrated that illegal transactions can be identified with better-than-random accuracy, over time. These models were especially effective at recognising illegal transactions, the stated aim of the model. Whilst in the early days of using such a model will generate incorrect results for legal activities the business risk is low, compared to the volume and impact of allowing large somes of illegal trsactions to continue to go unchecked. 
+
+### 13.5. **Invest in Better Data Labelling and Feature Tracking**
+
+The biggest bottleneck in building effective models is data quality and balance. Efforts should be made to:
+- Improve the labelling of transaction outcomes
+- Track additional features (e.g., transaction timing, frequency, links to prior suspicious activity)
+- Continuously retrain models with new data
+
+These actions will improve the ability to automate detection, reduce false positives, and stay ahead of increasingly complex laundering schemes.
+
+
+## 14. Ethical Considerations and Privcay 
+
+### 14.1. Ethics and Privacy
+
+All personal and identifiable information has been thoroughly removed from the dataset to ensure the privacy and confidentiality of individuals and institutions involved. 
+
+Specifically:
+
+- **Personal Identifiers:** Names, contact details, account numbers, and any direct personal identifiers have been fully anonymised. For example, individual names have been replaced with generic labels such as Person 123.
+
+- **Institutional Data:** Identifiable information relating to financial institutions, such as bank names or branch identifiers, has also been anonymised, using placeholders like Bank 4833.
+
+ - **Indirect Identifiers:** Care has been taken to avoid inclusion of any combinations of data that could potentially lead to re-identification of individuals or organisations, in accordance with established data protection and ethical research guidelines.
+
+ - **Data Handling:** The data has been stored and handled securely throughout the project, and access has been restricted to authorised personnel only.
+
+- **Data Governance** These steps have been implemented to ensure compliance with ethical research standards and data protection regulations, including GDPR (where applicable), and to respect the privacy of all parties involved.
+
+- **Legal Considerations**The project complies with the General Data Protection Regulation (GDPR) and other relevant data protection laws.
+No real-world decisions or actions were taken based on the dataset, and findings are used solely for educational and analytical purposes.
+The use of simulated or anonymised data mitigates legal risks associated with data misuse or exposure.
+- **Social Impact and Responsibility**
+The analysis explores sensitive topics like money laundering and financial crime. Care was taken to avoid reinforcing harmful stereotypes or biases, especially concerning certain industries or jurisdictions. Visualisations and commentary were written with a view to public understanding, fairness, and avoiding undue alarm or reputational harm.
+The project advocates for improved transparency and risk detection practices in financial systems without targeting specific regions, people, or organisations.
+
+## 15. Project Reflections 
+
+### 15.1. Learning and Challenges 
+
+A number of challenges were encountered throughout the project, particularly around time series handling, feature engineering, and tool limitations.
+
+**Time-based analysis proved problematic**, especially with inconsistent date formatting and limitations in how Tableau interprets time shifts. This affected the ability to carry out robust time comparisons.
+
+Further **feature engineering** was required to enhance the effectiveness of both visual analysis in Tableau and model training in VS Code/Juypter Notebooks. Several insights became clearer only after substantial trial and error in data transformation.
+
+The **free tier limitations of Tableau** introduced additional constraints. Notably, new datasets could not be imported more than once, requiring unnecessary workarounds and slowing down progress.
+
+One key learning was the importance of having a clearer brief at the start regarding machine learning objectives. A notable amount of time was spent preparing and transforming the dataset for use with `DecisionTreeClassifier`. With better planning, more time could have been allocated to **model tuning**, which would likely have improved classification performance.
+
+Looking ahead, improved model accuracy opens up the possibility of building an **AML risk calculator using Streamlit**, where users can input transaction details and receive a risk assessment indicating whether the transaction is likely to be illegal or not. This could significantly reduce ambiguity in identifying suspicious transactions, helping organisations focus resources to exactly where they are needed.
+
+## 16. Assessment Criteria - Learning Outcomes
 
 
 
+
+| Learning Outcome | Requirement Summary | How Met |
+|------------------|---------------------|---------|
+| 1.1 | Explain core statistics & probability principles | 4.1 Analysis and Findings |
+| 1.2 | Apply principles using relevant examples | 4.1 Analysis and Findings |
+| 2.1 | Use Python & tools to manipulate/analyse data | 3.0 Methodology - ETL |
+| 2.2 | Evaluate and improve Python code | 11. DecisionTreeClassifier |
+| 2.3 | Apply techniques like regression, classification | 11. DecisionTreeClassifier |
+| 3.1 | Analyse a real-world dataset | 1.1 Problem Statement |
+| 3.2 | Justify your problem-solving approach | Jupyter Notebook markdown |
+| 3.3 | Design structured analysis workflow | Jupyter Notebook |
+| 4.1 | Use AI tools (e.g. Copilot) in your work | Jupyter Notebook / VS Code |
+| 4.2 | Use GenAI to assist with storytelling | 10. Analysis and Findings (Tableau) |
+| 4.3 | Identify limitations & alternative solutions | 11. DecisionTreeClassifier |
+| 5.1 | Demonstrate effective data processing | Jupyter Notebook |
+| 5.2 | Apply data handling best practices | Jupyter Notebook / 14. Ethics and Privacy |
+| 6.1 | Reflect on data ethics & privacy | 14. Ethics and Privacy |
+| 6.2 | Consider legal/social implications | 14. Ethics and Privacy |
+| 7.1 | Organise project & use version control | GitHub |
+| 7.2 | Justify research methods chosen | 7. Methodology / Jupyter Notebook |
+| 8.1 | Communicate insights clearly | README / Jupyter Notebook |
+| 8.2 | Use visualisations & narrative | 10. Analysis and Findings |
+| 8.3 | Structure your documentation effectively | README |
+| 9.1 | Explore analytics in your domain | 7. Methodology |
+| 9.2 | Explain how analytics/AI solves problems | 9. Conclusion and 10. Recommendations |
+| 10.1 | Build a project plan with updates & evaluation | GitHub Project Board |
+| 10.2 | Reflect on project execution challenges | 15.1 Learning and Challenges |
+| 11.1 | Research & experiment with tools/methods | 11. DecisionTreeClassifier |
+| 11.2 | Reflect on your learning & next steps | 13. Recommendations / 15.1 Learning and Challenges |
 
