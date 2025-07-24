@@ -5,10 +5,24 @@
 
 ## Table of Contents
 
-
-
-
-
+1. [Overview](#1-overview)
+2. [The Dataset](#2-the-dataset)
+3. [Key Objectives](#3-key-objectives)
+4. [Business Requirements](#4-business-requirements)
+5. [Key Business Goals](#5-key-business-goals)
+6. [Hypothesis](#6-hypothesis)
+7. [Methodology](#7-methodology)
+8. [Analysis & Findings](#8-analysis--findings)
+9. [Advanced Analytics](#9-advanced-analytics)
+10. [Hypothesis Testing Summary and Statistical Validation](#10-hypothesis-testing-summary-and-statistical-validation)
+11. [Decision Tree Classification](#11-decision-tree-classification)
+12. [Conclusion](#12-conclusion)
+13. [Recommendations](#13-recommendations)
+14. [Ethical Considerations and Privacy](#14-ethical-considerations-and-privacy)
+15. [Project Reflections](#15-project-reflections)
+16. [Credits](#16-credits)
+17. [Acknowledgements](#17-acknowledgements)
+18. [Assessment Criteria - Learning Outcomes](#18-assessment-criteria---learning-outcomes)
 
 ##  1. Overview
 ### 1.1 Problem Statement
@@ -22,6 +36,7 @@ When institutions fail to comply with anti-money laundering (AML) regulations, t
 Beyond financial penalties, money laundering poses a direct threat to the profitability and reputation of institutions and contributes to long-term societal harm by enabling criminal networks that destabilize communities worldwide.
 
 In the United Kingdom, the Proceeds of Crime Act 2002 requires financial institutions to implement risk-based customer due diligence approach and take proactive measures to prevent their services from being used for money laundering or terrorist financing.
+
 This project investigates synthetic financial transaction data to identify patterns indicative of money laundering, drawing on datasets that span multiple countries, industries, and transaction types.
 
 ## 2. The Dataset 
@@ -58,18 +73,18 @@ Money_Laundering_Dataset_.csv (10,000 records X 14 columns)
 | **Tax Haven Country**         | Specifies whether the transaction is connected to a known tax haven jurisdiction. |
 
 
-*Date of transactions - transactions span a two-year period from 2013 - 2014. We will carry out a data shift to 2023/ 2024 during the ETL process to enable the analysis of any seasonality variations within the dataset. 
+*Date of transactions - transactions span a two-year period from 2013-2014. We will carry out a data shift to 2023/2024 during the ETL process to enable the analysis of any seasonality variations within the dataset. 
 
 ## 3. Key Objectives 
 
 - Identify behavioural patterns and proxy patterns linked to money laundering. 
 - Test key hypotheses using the data set 
-Visualise findings through interactive Tableau dashboards
+- Visualise findings through interactive Tableau dashboards
 - Translate insights into actionable business recommendations.
-- Develop and evaluate machine-learning models, a supervised classifiers (e.g., logistic regression, random forest).
+- Develop and evaluate machine-learning models and supervised classifiers (e.g., logistic regression, random forest).
 
 ## 4. Business Requirements 
-This project supports stakeholder decision-making with clear, data-driven insights into the drivers patters of behaviour around money laundering. 
+This project supports stakeholder decision-making with clear, data-driven insights into the driver patterns of behaviour around money laundering. 
 
 ## 5. Key Business Goals
 Identify adequate processes and procedures to better comply with anti-money laundering regulations, at the domestic and international level. 
@@ -88,7 +103,7 @@ A structured data analysis workflow ensured traceability from business objective
 
 **High-Level Project Plan**
 
-A GitHub project board was created and used to structure the project phases, track progress, and ensure the work was completed on time(https://github.com/users/NAW125/projects/5). The planning drew on project experience and data science workflows, breaking down the work into manageable stages from ideation to delivery.
+A GitHub project board was created and used to structure the project phases, track progress, and ensure the work was completed on time (https://github.com/users/NAW125/projects/5). The planning drew on project experience and data science workflows, breaking down the work into manageable stages from ideation to delivery.
 
 The first phase involved ideation, selecting a suitable AML dataset, and clearly defining the problem statement. Once the dataset was sourced, the next step was data preparation, which included cleaning, transforming, and encoding the data using Python in VS Code.
 
@@ -101,15 +116,28 @@ For the modelling stage, a DecisionTreeClassifier was used to build a simple but
 
 The README was progressively updated during the project, with a full review and polish once the main analysis and dashboard were complete. It includes final outputs, reflections, ethical considerations, and next steps for future development, including a potential Streamlit-based AML calculator.
 
+
+Here’s a rewritten version for your **README**, keeping the structure and intention but tailoring it to your project tone and context:
+
+------
+
+### Methodology Rationale
+
+Adopted exploratory data analysis and comparative hypothesis testing as the central analytical methods, reflecting the investigative nature of financial crime detection.
+Prioritised visual storytelling to make complex transactional data accessible to both technical and business stakeholders.
+Chose Plotly and Seaborn** for their flexibility and visual quality, enabling a balance between static summaries and interactive exploration.
+
+
+
 ### 7.3 Extract Transform and Load 
 
 A structured ETL pipeline was implemented to ensure clean, analysis-ready data. The ETL (Extract, Transform, Load) process involved:
 
 7.3.1 **Data Cleaning:** Checking for irregularities across the dataset which could hinder analysis, including missing values spelling errors, datetime parsing, normalisation. Removing columns that are not needed for the analysis. i.e. Transaction Number: (TX0000000001). And keeping the size of the file to a manageable size, so that analysis tools such and Power BI and Tableau can handle the file size. Review records where “duplicates” appear. Are these duplicates appropriate or do they demonstrate something about the data. Monetary values are reduced down to zero decimal places as we are dealing seven figure transactions, it is safe to drop any additional small values.
 
-7.3.2. **Exploratory Data Analysis :**  Focused on the numerical columns within the dataset. `Amount USD`, `Money Laundering Risk Score` and `Number of Shell Companies Involved`. Initial Analysis involves descriptive sttastics , mean, media and mode, outlier detection to identify and values which may skew the analysis or prevent stastical tests being carried out. Distribution plots will assess the spread of the data. 
+7.3.2. **Exploratory Data Analysis :**  Focused on the numerical columns within the dataset. `Amount USD`, `Money Laundering Risk Score` and `Number of Shell Companies Involved`. Initial Analysis involves descriptive statistics, mean, median and mode, outlier detection to identify any values which may skew the analysis or prevent statistical tests being carried out. Distribution plots will assess the spread of the data. 
 
-7.3.3. **Exploratory Data Analysis :**  Focused on the numerical columns within the dataset. `Amount USD`, `Money Laundering Risk Score` and `Number of Shell Companies Involved`. Initial Analysis involves descriptive sttastics , mean, media and mode, outlier detection to identify and values which may skew the analysis or prevent stastical tests being carried out. Distribution plots will assess the spread of the data. 
+7.3.3. **Exploratory Data Analysis :**  Focused on the numerical columns within the dataset. `Amount USD`, `Money Laundering Risk Score` and `Number of Shell Companies Involved`. Initial Analysis involves descriptive statistics, mean, median and mode, outlier detection to identify any values which may skew the analysis or prevent statistical tests being carried out. Distribution plots will assess the spread of the data. 
 
  
 7.3.4. `Domestic vs Cross-Border Transaction` Purpose: Quickly identifies if a transaction stays within the same country or goes across borders. Method: Compare Country with Destination Country. 
@@ -324,7 +352,7 @@ In 2023, $25.02 billion in international transactions were recorded across ten c
 !['transaction_flows_by_destination'](images/transaction_flows_by_destination_country.png)
 !['legal_illegal'](images/legal_illegal.png)
 
-Of that 90.1% of  total transactions, at least 60% of transactions for all 10 countries are illegal.. This supports the hypothesis that the largest proportion of cross-boarder transactions are illegal.This supports the hypothesis that the largest proportion of cross-border transactions are illegal.
+Of that 90.1% of total transactions, at least 60% of transactions for all 10 countries are illegal. This supports the hypothesis that the largest proportion of cross-border transactions are illegal.
 
 
 | 2 | Illegal transactions are more common in high-risk sectors such as Casinos and Luxury Goods. However, the data shows an equal spread of international transactions across sectors, with no single industry standing out. Therefore, this finding does not appear to support the hypothesis.
@@ -335,7 +363,7 @@ Of that 90.1% of  total transactions, at least 60% of transactions for all 10 co
 
 !['transactions_involving_tax_havens'](images/transactions_involving_tax_havens.png)
 
-The data shows that the hightest proportion of transactions across the course of the year, 2023 does not involve tax haven countries. $14B was laundered in 2023 involving ten countries that did not involve a tax havens. This finding does not support the hypothesis.
+The data shows that the highest proportion of transactions across the course of the year, 2023 does not involve tax haven countries. $14B was laundered in 2023 involving ten countries that did not involve tax havens. This finding does not support the hypothesis.
 
 
 **10.1 Additional Findings**
@@ -413,7 +441,7 @@ To address the imbalance, the training dataset was rebalanced to include equal n
 
 ![decision_tree](images/decision_tree.png)
 
-This decision tree map, shows a highly detailed and complex decision making process to identity whether a transaction is fraudulent of not.  
+This decision tree map shows a highly detailed and complex decision making process to identify whether a transaction is fraudulent or not.  
 
 ---
 
@@ -477,14 +505,14 @@ The risk increases even further when a transaction involves both a tax haven des
 ### 13.3. **Increase Random Spot Checks on International Transactions**
 
 A large proportion of international transactions are associated with illegal activity, yet authorities are underreporting such cases. Financial institutions should increase random spot checks, particularly for transactions:
-- In the full range of trsactions, $1 million to $5 million.
+- In the full range of transactions, $1 million to $5 million.
 - Across all sectors, not just those traditionally seen as high risk
 
 This approach improves the likelihood of identifying suspicious activity by chance and strengthens the institution’s overall detection capabilities.
 
 ### 13.4. **Incorporate Machine Learning into AML Pipelines**
 
-While early models like the decision tree and XGBoost classifier showed a good starting place with 59% accuracy. These models have they demonstrated that illegal transactions can be identified with better-than-random accuracy, over time. These models were especially effective at recognising illegal transactions, the stated aim of the model. Whilst in the early days of using such a model will generate incorrect results for legal activities the business risk is low, compared to the volume and impact of allowing large somes of illegal trsactions to continue to go unchecked. 
+While early models like the decision tree and XGBoost classifier showed a good starting place with 59% accuracy. These models have demonstrated that illegal transactions can be identified with better-than-random accuracy, over time. These models were especially effective at recognising illegal transactions, the stated aim of the model. Whilst in the early days of using such a model will generate incorrect results for legal activities the business risk is low, compared to the volume and impact of allowing large sums of illegal transactions to continue to go unchecked. 
 
 ### 13.5. **Invest in Better Data Labelling and Feature Tracking**
 
@@ -496,7 +524,7 @@ The biggest bottleneck in building effective models is data quality and balance.
 These actions will improve the ability to automate detection, reduce false positives, and stay ahead of increasingly complex laundering schemes.
 
 
-## 14. Ethical Considerations and Privcay 
+## 14. Ethical Considerations and Privacy 
 
 ### 14.1. Ethics and Privacy
 
@@ -529,7 +557,7 @@ A number of challenges were encountered throughout the project, particularly aro
 
 **Time-based analysis proved problematic**, especially with inconsistent date formatting and limitations in how Tableau interprets time shifts. This affected the ability to carry out robust time comparisons.
 
-Further **feature engineering** was required to enhance the effectiveness of both visual analysis in Tableau and model training in VS Code/Juypter Notebooks. Several insights became clearer only after substantial trial and error in data transformation.
+Further **feature engineering** was required to enhance the effectiveness of both visual analysis in Tableau and model training in VS Code/Jupyter Notebooks. Several insights became clearer only after substantial trial and error in data transformation.
 
 The **free tier limitations of Tableau** introduced additional constraints. Notably, new datasets could not be imported more than once, requiring unnecessary workarounds and slowing down progress.
 
@@ -537,7 +565,20 @@ One key learning was the importance of having a clearer brief at the start regar
 
 Looking ahead, improved model accuracy opens up the possibility of building an **AML risk calculator using Streamlit**, where users can input transaction details and receive a risk assessment indicating whether the transaction is likely to be illegal or not. This could significantly reduce ambiguity in identifying suspicious transactions, helping organisations focus resources to exactly where they are needed.
 
-## 16. Assessment Criteria - Learning Outcomes
+## 16. Credits
+The Code Institute Learning Management System modules on pandas and data visualisations with Matplotlib, Seaborn and Plotly
+Data source from Kaggle
+ChatGPT for Code snippets and troubleshoot problems 
+
+
+
+## 17.Acknowledgements
+
+I'd like to thank all coaches, SME and facilitators at code Institute and 
+Vasi Pavaloi, for helpful advice at critical times throughout the course. 
+
+
+## 18. Assessment Criteria - Learning Outcomes
 
 
 
