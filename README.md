@@ -1,6 +1,6 @@
 # Detecting Money Laundering Patterns Across Global Financial Transactions
 
-![world_map](images/world%20map.png)
+![world_map](images/world_map.png)
 
 
 ## Table of Contents
@@ -265,7 +265,7 @@ The mid point of transactions is $2.5 million dollars, the upper whisker is five
 
 ### 9.1.1. The Pearson Correlation Test.
 
-The Pearson correlation test is used to measure the linear relationship between two continuous numerical variables in the dataset. This test will show whether increases in one variable are associated with increases or decreases in another.
+ The Pearson correlation coefficient is used to measure linear relationships between continuous variables: transaction amount, risk score, and number of shell companies involved.
 
 
 **Result:**
@@ -285,14 +285,17 @@ It also returns a p-value, which tells you if the correlation is statistically s
 | Risk Score & Shell Companies Involved    | -0.0193                  | Very weak negative correlation – almost no relationship |
 ---
 
-These results indicate that there is **no meaningful linear relationship** between these variables. For instance, larger transaction amounts are **not necessarily** associated with higher risk scores or more shell companies. This suggests that the `Money Laundering Risk Score` may be influenced more by other factors, such as `Industry`, `Country`, or whether the transaction was `Reported by Authority`.
 
+
+These results indicate that there is no meaningful linear relationship between these variables. Which is further demonstrated by the correlation matrix below.
 
 ![correlation_newplot](images/correlation_newplot.png)
 
+This suggests that the `Money Laundering Risk Score` may be influenced more by other categorical factors, such as `Industry`, `Country`, or whether the transaction was `Reported by Authority`.
+
 ### 9.2. Chi-Squared Test Summary
 
-In order to calculate the relationships with categorical data, we'll explore the Chi Squared test,  which is a statistical method used to determine if there is a significant association between two categorical  variables. This test will help us understand if the distribution of one categorical variable differs significantly across the levels of another categorical variable.
+To explore relationships between categorical variables, a Chi-Squared Test of Independence was is used. 
 
 
 | Category 1        | Category 2              | Chi-Squared Statistic | Degrees of Freedom | P-Value   | Significant? (α = 0.05) |
@@ -315,7 +318,7 @@ A highly significant relationship was found between the type of transaction and 
 
 ## 10. Hypothesis Testing Summary and Statistical Validation
 
-This report summarises the findings of three hypotheses tested using the data to understand the drivers of credit card churn. Each hypothesis is evaluated with its outcome, reasoning, and actionable recommendations.
+This section evaluates three main hypotheses using a combination of visual and statistical analysis.
 
 | 1 | Cross-border transactions are more often associated with legal sources of funds? 
 In 2023, $25.02 billion in international transactions were recorded across ten countries. Of these, 90.1% were cross-border, while 9.9% were domestic.
@@ -323,25 +326,115 @@ In 2023, $25.02 billion in international transactions were recorded across ten c
 !['transaction_flows_by_destination'](images/transaction_flows_by_destination_country.png)
 !['legal_illegal'](images/legal_illegal.png)
 
-Of that 90.1% of  total transactions, at least 60% of transactions for all 10 countries are illegal.. This supports the hypothesis that the largest proportion of cross-boarder transactions are illegal. 
+Of that 90.1% of  total transactions, at least 60% of transactions for all 10 countries are illegal.. This supports the hypothesis that the largest proportion of cross-boarder transactions are illegal.This supports the hypothesis that the largest proportion of cross-border transactions are illegal.
 
-| 2 | Illegal transactions are more common in high-risk sectors such as Casinos and Luxury Goods.
+
+| 2 | Illegal transactions are more common in high-risk sectors such as Casinos and Luxury Goods. However, the data shows an equal spread of international transactions across sectors, with no single industry standing out. Therefore, this finding does not appear to support the hypothesis.
 
 ![spread_of_transactions_across_industry](images/spread_of_transactions_across_industry.png)
 
-| 3 | Cross-border transactions involving tax haven countries are more likely to be associated with illegal sources of money. 
-
+| 3 | Cross-border transactions involving tax haven countries are more likely to be associated with illegal sources of money. However, the visualisation shows that the greatest source of funds comes from non-tax haven countries. This finding does not support the hypothesis. 
 
 !['transactions_involving_tax_havens'](images/transactions_involving_tax_havens.png)
 
-The data shows that the hightest proportion of trsactions across the course of the year, 2023 does not involve tax haven countries. $14B was laundered in 2023 involving ten countries that did not involve a tax havens.
+The data shows that the hightest proportion of transactions across the course of the year, 2023 does not involve tax haven countries. $14B was laundered in 2023 involving ten countries that did not involve a tax havens. This finding does not support the hypothesis.
+
+
+**10.1 Additional Findings**
+
+Analysis of shell company involvement shows:
+A notable spike in illegal transactions where three or more shell companies were involved.
+While not statistically significant on its own (per Chi-Squared), the histogram suggests that shell company complexity may still be a red flag when combined with other risk factors.
 
 ![shell_company_involvement_transactions](images/shell_company_involvment_transactions.png)
 
 !['legal_illegal'](images/legal_illegal.png)
 
-The data set provided the range of shell companies associated with a transaction from 0- 9. Transactions where three or more shell companies involved is a red flag. The histogram shows that a disporotionally high proportion of illegal trsactions are associated with three or more shell companies 
+The boxplot illustrates the distribution of transaction values based on whether transactions were reported by authorities. It reveals that only a small proportion of total transactions are reported, indicating selective or risk-based reporting practices.
+Notably, the upper whisker for reported transactions reaches approximately $3.5 billion, whereas the upper whisker for unreported transactions (whether legal or illegal) extends up to $14 billion. This suggests that some of the highest-value transactions go unreported, and that reporting is not solely determined by transaction amount. Instead, it may depend more on other factors such as country of origin, industry, or involvement of high-risk entities.
 
+!['transaction_value_by_reporting_status](images/transaction_value_by_reporting_status.png)
+
+The full suite of visualisations of the data is located available here.  
+
+
+## 11. Decision Tree Classification
+
+### 11.1.  Machine Learning: Decision Tree Classification
+This section explores whether it's possible to automatically classify transactions as **legal or illegal** using supervised machine learning. Given the structure of the data, with a labelled target variable (`Source of Money_Legal`) and a mix of categorical and numerical features — a **classification model** is appropriate.
+
+### 11.2.  Objective
+The goal is to build a predictive model that can identify likely illegal transactions based on features such as:
+- Transaction amount
+- Risk score
+- Country of origin
+- Industry
+- Transaction type
+- Number of shell companies involved.
+
+This can support automated risk flagging in an Anti-Money Laundering (AML) context.
+
+
+### 11.3 Data Preparation & Preprocessing
+- **Categorical variables** were encoded using one-hot encoding to convert them into numerical format suitable for machine learning models.
+- The **target variable** is binary:
+  - `0` = Illegal
+  - `1` = Legal
+- The dataset was split into **80% training** and **20% testing** sets to evaluate generalisability.
+
+
+### 11.4. Baseline Model: Decision Tree Classifier
+
+A `DecisionTreeClassifier` was chosen as a simple, interpretable baseline model. The initial model was trained on the full dataset without balancing the classes.
+
+#### Results (Unbalanced Data)
+
+- **Accuracy:** 57.8%
+- Strong performance for illegal transactions (`Precision = 0.70`)
+- Poor performance for legal transactions (`Precision = 0.31`)
+- Likely impacted by class imbalance (70% of transactions are illegal)
+*This highlighted a bias toward the dominant class — illegal transactions — making it unreliable for identifying legitimate activity.*
+
+### 11.5. Improved Model: Balanced Training Data
+To address the imbalance, the training dataset was rebalanced to include equal numbers of legal and illegal cases.
+
+####  Results (Balanced Data)
+- **Accuracy improved slightly to 59.4%**
+- Small gains in precision and recall for legal transactions
+- Illegal classification remained relatively strong
+> This version offers a more fair and usable baseline for classifying both legal and illegal transactions.
+
+---
+
+### 11.6. XGBoost Classifier
+
+Next, an **XGBoost Classifier** was tested. XGBoost is a gradient boosting algorithm that builds a strong classifier from a series of weak learners, often delivering better performance on structured data.
+
+
+#### XGBoost Results
+
+- **Accuracy:** 56.4%  
+- Performance similar to the decision tree, but slightly lower
+- Still biased toward illegal transactions  
+- Legal classification remains weak due to limited signal in the data
+
+
+
+### 11.7. Interpretation and Next Steps
+
+While the best model achieved an accuracy of just under **60%**, this is a **reasonable baseline** for a complex real-world task like money laundering detection.
+
+Key takeaways:
+- The models are good at flagging illegal transactions (which aligns with the project's goal).
+- They struggle with legal transaction detection, likely due to data imbalance and limited distinguishing features.
+- False positives (flagging legal transactions as illegal) are relatively high, but acceptable at this exploratory stage.
+
+> We'll stop model development at this point, as the current dataset has limitations in class balance, granularity, and feature richness. However, the models lay a solid foundation that can improve significantly with:
+> - Better labelled data
+> - More granular features (e.g., transaction time, frequency)
+> - Techniques like feature selection, regularisation, or ensemble methods
+
+This section demonstrates how even a basic machine learning model can support suspicious transaction detection in a high-risk environment.
 
 
 
