@@ -353,13 +353,14 @@ Notably, the upper whisker for reported transactions reaches approximately $3.5 
 
 !['transaction_value_by_reporting_status](images/transaction_value_by_reporting_status.png)
 
-The full suite of visualisations of the data is located available here.  
+The full suite of visualisations of the data is located here.  
 
-| Story Number | Description                         | Link                                                                                                         |
-|--------------|-----------------------------------|--------------------------------------------------------------------------------------------------------------|
-| 1            | Hypothesis 1 - Cross-border vs Domestic Transactions | [View Story 1](https://public.tableau.com/shared/SKG4XY4W5?:display_count=n&:origin=viz_share_link)            |
-| 2            | Hypothesis 2 - Illegal Transactions in High-Risk Sectors | [View Story 2](https://public.tableau.com/shared/SKG4XY4W5?:display_count=n&:origin=viz_share_link)            |
-| 3            | Hypothesis 3 - Tax Haven Involvement in Cross-border Transactions | [View Story 3](https://public.tableau.com/views/DetectingMoneyLaunderingPatterns-H2/Hypothesis2?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link) |
+| Story Number | Description                                                  | Link                                                                                                                                                 |
+|--------------|--------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1            | Hypothesis 1 – Cross-border vs Domestic Transactions         | [View Story 1](https://public.tableau.com/shared/SKG4XY4W5?:display_count=n&:origin=viz_share_link)                                                  |
+| 2            | Hypothesis 2 – Illegal Transactions in High-Risk Sectors     | [View Story 2](https://public.tableau.com/views/DetectingMoneyLaunderingPatterns-H2/Hypothesis2?:language=en-GB&:display_count=n&:origin=viz_share_link) |
+| 3            | Hypothesis 3 – Tax Haven Involvement in Cross-border Transactions | [View Story 3](https://public.tableau.com/views/DetectingMoneyLaunderingPatterns-H3/Hypothesis3?:language=en-GB&:display_count=n&:origin=viz_share_link) |
+
 
 
 
